@@ -13,12 +13,20 @@ def parse_arguments():
                         help="Include event location")
     parser.add_argument("--include-description", action="store_true",
                         help="Include event description")
+    parser.add_argument("--include-all", action="store_true",
+                        help="Include all event details (datetime, location, description)")
     parser.add_argument("--include-index", action="store_true",
                         help="Include event index")
     return parser.parse_args()
 
 def main():
     opts = parse_arguments()
+
+    # If include-all flag is set, set all relevant flags
+    if(opts.include_all):
+        opts.include_datetime = True
+        opts.include_locations = True
+        opts.include_description = True
 
     # Read input ICS file to calendar object
     try:
