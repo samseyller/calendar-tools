@@ -7,6 +7,8 @@ def parse_arguments():
     parser = argparse.ArgumentParser(description="Display ICS events in Markdown format")
     parser.add_argument("input_ics", nargs="?", default="calendar.ics",
                         help="Input ICS file (default: calendar.ics)")
+    parser.add_argument("--timezone", default="local",
+                        help="Input an IANA timezone (default: local)")
     parser.add_argument("--include-datetime", action="store_true",
                         help="Include start and end datetime")
     parser.add_argument("--include-location", action="store_true",
@@ -46,8 +48,8 @@ def main():
         print(f"{f"\n## {event.name}" if event.name else '## Untitled Event'}\n")
 
         if opts.include_datetime:
-            print(f"  Start: {event.begin.to('local').format('YYYY-MM-DD HH:mm')}")
-            print(f"  End:   {event.end.to('local').format('YYYY-MM-DD HH:mm')}")
+            print(f"  Start: {event.begin.to(opts.timezone).format('YYYY-MM-DD HH:mm')}")
+            print(f"  End:   {event.end.to(opts.timezone).format('YYYY-MM-DD HH:mm')}")
 
         if opts.include_location and event.location:
             print(f"  Location: {event.location}")
