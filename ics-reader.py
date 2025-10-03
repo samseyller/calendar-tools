@@ -25,7 +25,7 @@ def main():
     # If include-all flag is set, set all relevant flags
     if(opts.include_all):
         opts.include_datetime = True
-        opts.include_locations = True
+        opts.include_location = True
         opts.include_description = True
 
     # Read input ICS file to calendar object
